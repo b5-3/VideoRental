@@ -129,17 +129,18 @@ public class VRUI {
 	}
 
 	public int showCommand() {
-		System.out.println("\nSelect a command !");
-		System.out.println("\t 0. Quit");
-		System.out.println("\t 1. List customers");
-		System.out.println("\t 2. List videos");
-		System.out.println("\t 3. Register customer");
-		System.out.println("\t 4. Register video");
-		System.out.println("\t 5. Rent video");
-		System.out.println("\t 6. Return video");
-		System.out.println("\t 7. Show customer report");
-		System.out.println("\t 8. Show customer and clear rentals");
+		String commands = "\nSelect a command !"
+				+ "\n\t 0. Quit"
+				+ "\n\t 1. List customers"
+				+ "\n\t 2. List videos"
+				+ "\n\t 3. Register customer"
+				+ "\n\t 4. Register video"
+				+ "\n\t 5. Rent video"
+				+ "\n\t 6. Return video"
+				+ "\n\t 7. Show customer report"
+				+ "\n\t 8. Show customer and clear rentals";
 
+		System.out.println(commands);
 		return scanner.nextInt() ;
 	}
 }
