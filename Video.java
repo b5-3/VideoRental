@@ -62,4 +62,8 @@ public class Video {
 		System.out.print("\tTitle: " + getTitle() + " ") ;
 		System.out.print("\tPrice Code: " + getPriceCode()) ;
 	}
+
+	public boolean isReturnable(String videoTitle) {
+		return getTitle().equals(videoTitle) && isRented();
+	}
 }

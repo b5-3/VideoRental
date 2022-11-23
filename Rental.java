@@ -22,11 +22,16 @@ public class Rental {
 		return status;
 	}
 
-	public void returnVideo() {
-		if ( status == 1 ) {
-			this.status = 1;
-			returnDate = new Date() ;
+	public boolean returnVideo(String videoTitle) {
+		if (getVideo().isReturnable(videoTitle)) {
+			if (status == 1) {
+				this.status = 1;
+				returnDate = new Date();
+			}
+			getVideo().setRented(false);
+			return true;
 		}
+		return false;
 	}
 
 	public int getDaysRented() {
