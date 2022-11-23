@@ -55,29 +55,14 @@ public class Customer {
 			int eachPoint = 0 ;
 			int daysRented = each.getDaysRented();
 
-			switch (each.getVideo().getPriceCode()) {
-			case REGULAR:
-				eachCharge += 2;
-				if (daysRented > 2)
-					eachCharge += (daysRented - 2) * 1.5;
-				break;
-			case NEW_RELEASE:
-				eachCharge = daysRented * 3;
-				eachPoint++;
-				break;
-			}
+			eachCharge = each.getCharge();
+			eachPoint = each.getPoint();
 
-			eachPoint++;
-
-			if ( daysRented > each.getDaysRentedLimit() )
-				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
-
-			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
+			result += "\t" + each.getVideoTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
 					+ "\tPoint: " + eachPoint + "\n";
 
 			totalCharge += eachCharge;
-
-			totalPoint += eachPoint ;
+			totalPoint += eachPoint;
 		}
 
 		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";

@@ -18,6 +18,10 @@ public class Rental {
 		return video;
 	}
 
+	public String getVideoTitle() {
+		return video.getTitle();
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -57,5 +61,30 @@ public class Rental {
 	}
 	public void println() {
 		getVideo().println();
+	}
+
+	public double getCharge() {
+		double charge = 0;
+		switch (video.getPriceCode()) {
+			case REGULAR:
+				charge += 2;
+				if (getDaysRented() > 2)
+					charge += (getDaysRented() - 2) * 1.5;
+				break;
+			case NEW_RELEASE:
+				charge = getDaysRented() * 3;
+				break;
+		}
+
+		return charge;
+	}
+
+	public int getPoint() {
+		int point = video.getPriceCode() == PriceCode.NEW_RELEASE ? 2 : 1;
+
+		if ( getDaysRented() > getDaysRentedLimit() )
+			point -= Math.min(point, video.getLateReturnPointPenalty()) ;
+
+		return point;
 	}
 }
