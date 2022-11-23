@@ -50,4 +50,7 @@ public class Rental {
 		}
 		return limit ;
 	}
+	public void println() {
+		getVideo().println();
+	}
 }

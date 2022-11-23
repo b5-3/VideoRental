@@ -96,4 +96,11 @@ public class Customer {
 		}
 		return result ;
 	}
+
+	public void println() {
+		System.out.println("Name: " + getName() + "\tRentals: " + getRentals().size()) ;
+		for ( Rental rental: getRentals() ) {
+			rental.println();
+		}
+	}
 }
