@@ -49,31 +49,15 @@ public class VRUI {
 		}
 	}
 
-	public void returnVideo() {
-		System.out.println("Enter customer name: ") ;
-		String customerName = scanner.next() ;
-
-		Customer foundCustomer = controller.getCustomer(customerName);
-		if ( foundCustomer == null ) return ;
-
-		System.out.println("Enter video title to return: ") ;
-		String videoTitle = scanner.next() ;
-		foundCustomer.returnVideo(videoTitle);
-	}
-
 	private void init() {
-		Customer james = new Customer("James") ;
-		Customer brown = new Customer("Brown") ;
-		controller.addCustomer(james) ;
-		controller.addCustomer(brown) ;
+		Video v1 = controller.addVideo("v1", VideoType.CD, PriceCode.REGULAR, new Date());
+		Video v2 = controller.addVideo("v2", VideoType.DVD, PriceCode.NEW_RELEASE, new Date());
 
-		Video v1 = new Video("v1", VideoType.CD, PriceCode.REGULAR, new Date()) ;
-		Video v2 = new Video("v2", VideoType.DVD, PriceCode.NEW_RELEASE, new Date()) ;
-		controller.addVideo(v1) ;
-		controller.addVideo(v2) ;
-
+		Customer james = controller.addCustomer("James");
 		james.addRentalVideo(v1) ;
 		james.addRentalVideo(v2) ;
+
+		controller.addCustomer("Brown");
 	}
 
 	public void listVideos() {
@@ -117,17 +101,26 @@ public class VRUI {
 		System.out.println("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = controller.getVideo(videoTitle);
-		if ( foundVideo == null ) return ;
+		controller.rentVideo(foundCustomer, videoTitle);
+	}
 
-		foundCustomer.setRentalVideo(foundVideo);
+	public void returnVideo() {
+		System.out.println("Enter customer name: ") ;
+		String customerName = scanner.next() ;
+
+		Customer foundCustomer = controller.getCustomer(customerName);
+		if ( foundCustomer == null ) return ;
+
+		System.out.println("Enter video title to return: ") ;
+		String videoTitle = scanner.next() ;
+
+		controller.returnVideo(foundCustomer, videoTitle);
 	}
 
 	public void registerCustomer() {
 		System.out.println("Enter customer name: ") ;
 		String name = scanner.next();
-		Customer customer = new Customer(name) ;
-		controller.addCustomer(customer) ;
+		controller.addCustomer(name) ;
 	}
 
 	public void registerVideo() {
