@@ -79,13 +79,13 @@ public class VRUI {
 	private void init() {
 		Customer james = new Customer("James") ;
 		Customer brown = new Customer("Brown") ;
-		controller.getCustomerList().add(james) ;
-		controller.getCustomerList().add(brown) ;
+		controller.addCustomer(james) ;
+		controller.addCustomer(brown) ;
 
 		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
 		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
-		controller.getVideoList().add(v1) ;
-		controller.getVideoList().add(v2) ;
+		controller.addVideo(v1) ;
+		controller.addVideo(v2) ;
 
 		Rental r1 = new Rental(v1) ;
 		Rental r2 = new Rental(v2) ;
@@ -156,7 +156,7 @@ public class VRUI {
 			System.out.println("Enter customer name: ") ;
 			String name = scanner.next();
 			Customer customer = new Customer(name) ;
-			controller.getCustomerList().add(customer) ;
+			controller.addCustomer(customer) ;
 		} else {
 			System.out.println("Enter video title to register: ") ;
 			String title = scanner.next() ;
@@ -169,7 +169,7 @@ public class VRUI {
 
 			Date registeredDate = new Date();
 			Video video = new Video(title, videoType, priceCode, registeredDate) ;
-			controller.getVideoList().add(video) ;
+			controller.addVideo(video) ;
 		}
 	}
 
