@@ -64,15 +64,7 @@ public class VRUI {
 
 		System.out.println("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
+		foundCustomer.returnVideo(videoTitle);
 	}
 
 	private void init() {
@@ -86,11 +78,8 @@ public class VRUI {
 		controller.addVideo(v1) ;
 		controller.addVideo(v2) ;
 
-		Rental r1 = new Rental(v1) ;
-		Rental r2 = new Rental(v2) ;
-
-		james.addRental(r1) ;
-		james.addRental(r2) ;
+		james.addRentalVideo(v1) ;
+		james.addRentalVideo(v2) ;
 	}
 
 	public void listVideos() {

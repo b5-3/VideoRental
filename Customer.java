@@ -33,9 +33,20 @@ public class Customer {
 		rentals.clear();
 	}
 
-	public void addRental(Rental rental) {
+	public void addRentalVideo(Video video) {
+		Rental rental = new Rental(video) ;
+		video.setRented(true);
 		rentals.add(rental);
+	}
 
+	public void returnVideo(String videoTitle) {
+		for (Rental rental : rentals) {
+			if (rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented()) {
+				rental.returnVideo();
+				rental.getVideo().setRented(false);
+				break;
+			}
+		}
 	}
 
 	public String getReport() {
