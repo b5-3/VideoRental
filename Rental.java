@@ -1,6 +1,8 @@
 import java.util.Date;
 
 public class Rental {
+	private final int MS_TO_DAYS = 1000 * 60 * 60 * 24;
+
 	private Video video ;
 	private int status ; // 0 for Rented, 1 for Returned
 	private Date rentDate ;
@@ -28,15 +30,13 @@ public class Rental {
 	}
 
 	public int getDaysRented() {
-		int daysRented;
+		long diff;
 		if (getStatus() == 1) { // returned Video
-			long diff = returnDate.getTime() - rentDate.getTime();
-			daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+			diff = returnDate.getTime() - rentDate.getTime();
 		} else { // not yet returned
-			long diff = new Date().getTime() - rentDate.getTime();
-			daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+			diff = new Date().getTime() - rentDate.getTime();
 		}
-		return daysRented;
+		return (int) (diff / MS_TO_DAYS) + 1;
 	}
 
 	public int getDaysRentedLimit() {
