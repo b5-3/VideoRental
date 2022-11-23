@@ -26,13 +26,6 @@ public class Rental {
 			returnDate = new Date() ;
 		}
 	}
-	public Date getRentDate() {
-		return rentDate;
-	}
-
-	public Date getReturnDate() {
-		return returnDate;
-	}
 
 	public int getDaysRented() {
 		int daysRented;
