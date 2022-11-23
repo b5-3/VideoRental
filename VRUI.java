@@ -22,7 +22,7 @@ public class VRUI {
 				case 0: quit = true ; break ;
 				case 1: ui.listCustomers() ; break ;
 				case 2: ui.listVideos() ; break ;
-				case 3: ui.registerCustomer("customer") ; break ;
+				case 3: ui.registerCustomer() ; break ;
 				case 4: ui.registerVideo() ; break ;
 				case 5: ui.rentVideo() ; break ;
 				case 6: ui.returnVideo() ; break ;
