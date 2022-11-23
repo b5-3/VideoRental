@@ -58,9 +58,8 @@ public class Video {
 		this.videoType = videoType;
 	}
 
-	public void println() {
-		System.out.print("\tTitle: " + getTitle() + " ") ;
-		System.out.print("\tPrice Code: " + getPriceCode()) ;
+	public void printSummary() {
+		System.out.println("Price code: " + priceCode +"\tTitle: " + title) ;
 	}
 
 	public boolean isReturnable(String videoTitle) {

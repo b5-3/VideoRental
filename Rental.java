@@ -59,8 +59,8 @@ public class Rental {
 		}
 		return limit ;
 	}
-	public void println() {
-		getVideo().println();
+	public void printSummary() {
+		video.printSummary();
 	}
 
 	public double getCharge() {

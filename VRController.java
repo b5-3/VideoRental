@@ -34,11 +34,11 @@ public class VRController {
         return customer;
     }
 
-    void addVideo(Video addedVideo) {
-        videos.add(addedVideo);
+    boolean hasCustomer(String name) {
+        return getCustomer(name) != null;
     }
 
-    Video addVideo(String title, VideoType videoType, PriceCode priceCode, Date registeredDate) {
+     Video addVideo(String title, VideoType videoType, PriceCode priceCode, Date registeredDate) {
         Video video = new Video(title, videoType,priceCode, registeredDate);
         videos.add(video);
         return video;
@@ -53,14 +53,36 @@ public class VRController {
         return null;
     }
 
-    public void rentVideo(Customer customer, String videoTitle) {
+    public void rentVideo(String customerName, String videoTitle) {
         Video foundVideo = getVideo(videoTitle);
         if ( foundVideo == null ) return ;
 
-        customer.setRentalVideo(foundVideo);
+        Customer customer = getCustomer(customerName);
+        if (customer != null) {
+            customer.setRentalVideo(foundVideo);
+        }
     }
 
-    public void returnVideo(Customer customer, String videoTitle) {
-        customer.returnVideo(videoTitle);
+    public void returnVideo(String customerName, String videoTitle) {
+        Customer customer = getCustomer(customerName);
+        if (customer != null) {
+            customer.returnVideo(videoTitle);
+        }
+    }
+
+    public void clearRental(String name) {
+        Customer customer = getCustomer(name);
+        if (customer != null) {
+            customer.printSummary();
+            customer.clearRentals();
+        }
+    }
+
+    public String getCustomerReport(String name) {
+        Customer customer = getCustomer(name);
+        if (customer != null) {
+            return customer.getReport();
+        }
+        return "no customer found";
     }
 }

@@ -77,10 +77,10 @@ public class Customer {
 		return result ;
 	}
 
-	public void println() {
+	public void printSummary() {
 		System.out.println("Name: " + getName() + "\tRentals: " + getRentals().size()) ;
 		for ( Rental rental: getRentals() ) {
-			rental.println();
+			rental.printSummary();
 		}
 	}
 }

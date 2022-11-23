@@ -38,13 +38,10 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = controller.getCustomer(customerName);
-
-		if ( foundCustomer == null ) {
+		if (!controller.hasCustomer(customerName)) {
 			System.out.println("No customer found") ;
 		} else {
-			foundCustomer.println();
-			foundCustomer.clearRentals();
+			controller.clearRental(customerName);
 		}
 	}
 
@@ -63,7 +60,7 @@ public class VRUI {
 		System.out.println("List of videos");
 
 		for (Video video : controller.getVideoList()) {
-			video.println();
+			video.printSummary();
 		}
 		System.out.println("End of list");
 	}
@@ -71,7 +68,7 @@ public class VRUI {
 	public void listCustomers() {
 		System.out.println("List of customers");
 		for ( Customer customer: controller.getCustomerList() ) {
-			customer.println();
+			customer.printSummary();
 		}
 		System.out.println("End of list");
 	}
@@ -80,12 +77,10 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = controller.getCustomer(customerName);
-
-		if ( foundCustomer == null ) {
+		if (!controller.hasCustomer(customerName)) {
 			System.out.println("No customer found") ;
 		} else {
-			String result = foundCustomer.getReport() ;
+			String result = controller.getCustomerReport(customerName);
 			System.out.println(result);
 		}
 	}
@@ -94,26 +89,24 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = controller.getCustomer(customerName);
-		if ( foundCustomer == null ) return ;
+		if (!controller.hasCustomer(customerName)) return ;
 
 		System.out.println("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		controller.rentVideo(foundCustomer, videoTitle);
+		controller.rentVideo(customerName, videoTitle);
 	}
 
 	public void returnVideo() {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = controller.getCustomer(customerName);
-		if ( foundCustomer == null ) return ;
+		if (!controller.hasCustomer(customerName) ) return ;
 
 		System.out.println("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
 
-		controller.returnVideo(foundCustomer, videoTitle);
+		controller.returnVideo(customerName, videoTitle);
 	}
 
 	public void registerCustomer() {
@@ -132,9 +125,7 @@ public class VRUI {
 		System.out.println("Enter price code( 1 for Regular, 2 for New Release ):") ;
 		int priceCode = scanner.nextInt();
 
-		Date registeredDate = new Date();
-		Video video = new Video(title, VideoType.get(videoType), PriceCode.get(priceCode), registeredDate) ;
-		controller.addVideo(video) ;
+		controller.addVideo(title, VideoType.get(videoType), PriceCode.get(priceCode), new Date()) ;
 	}
 
 	public int showCommand() {
@@ -149,8 +140,6 @@ public class VRUI {
 		System.out.println("\t 7. Show customer report");
 		System.out.println("\t 8. Show customer and clear rentals");
 
-		int command = scanner.nextInt() ;
-
-		return command ;
+		return scanner.nextInt() ;
 	}
 }
