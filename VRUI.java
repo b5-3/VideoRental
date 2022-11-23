@@ -10,6 +10,8 @@ public class VRUI {
 
 	private List<Video> videos = new ArrayList<Video>() ;
 
+	private VRController controller;
+
 	public static void main(String[] args) {
 		VRUI ui = new VRUI() ;
 
@@ -52,17 +54,6 @@ public class VRUI {
 			List<Rental> rentals = new ArrayList<Rental>() ;
 			foundCustomer.setRentals(rentals);
 		}
-	}
-
-	private Customer getCustomer(String customerName) {
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
-		return foundCustomer;
 	}
 
 	public void returnVideo() {
@@ -144,20 +135,12 @@ public class VRUI {
 		String customerName = scanner.next() ;
 
 		Customer foundCustomer = getCustomer(customerName);
-
 		if ( foundCustomer == null ) return ;
 
 		System.out.println("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = null ;
-		for ( Video video: videos ) {
-			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
-				foundVideo = video ;
-				break ;
-			}
-		}
-
+		Video foundVideo = getVideo(videoTitle);
 		if ( foundVideo == null ) return ;
 
 		Rental rental = new Rental(foundVideo) ;
@@ -207,4 +190,23 @@ public class VRUI {
 
 		return command ;
 	}
+
+	private Customer getCustomer(String customerName) {
+		for ( Customer customer: customers ) {
+			if ( customer.getName().equals(customerName)) {
+				return customer ;
+			}
+		}
+		return null;
+	}
+
+	private Video getVideo(String videoTitle) {
+		for ( Video video: videos ) {
+			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
+				return video;
+			}
+		}
+		return null;
+	}
+
 }
