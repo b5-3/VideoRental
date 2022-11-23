@@ -28,6 +28,14 @@ public class VRController {
         return null;
     }
 
+    void addCustomer(Customer addedCustomer) {
+        customers.add(addedCustomer);
+    }
+
+    void addVideo(Video addedVideo) {
+        videos.add(addedVideo);
+    }
+
     Video getVideo(String videoTitle) {
         for ( Video video: getVideoList() ) {
             if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
