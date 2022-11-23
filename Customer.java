@@ -5,7 +5,7 @@ import java.util.List;
 public class Customer {
 	private String name;
 
-	private List<Rental> rentals = new ArrayList<Rental>();
+	private final List<Rental> rentals = new ArrayList<Rental>();
 
 	public Customer(String name) {
 		this.setName(name);
@@ -23,8 +23,14 @@ public class Customer {
 		return rentals;
 	}
 
-	public void setRentals(List<Rental> rentals) {
-		this.rentals = rentals;
+	public void setRentalVideo(Video video) {
+		Rental rental = new Rental(video) ;
+		video.setRented(true);
+		rentals.add(rental);
+	}
+
+	public void clearRentals() {
+		rentals.clear();
 	}
 
 	public void addRental(Rental rental) {

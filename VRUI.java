@@ -51,8 +51,7 @@ public class VRUI {
 				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
 			}
 
-			List<Rental> rentals = new ArrayList<Rental>() ;
-			foundCustomer.setRentals(rentals);
+			foundCustomer.clearRentals();
 		}
 	}
 
@@ -143,12 +142,7 @@ public class VRUI {
 		Video foundVideo = controller.getVideo(videoTitle);
 		if ( foundVideo == null ) return ;
 
-		Rental rental = new Rental(foundVideo) ;
-		foundVideo.setRented(true);
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		customerRentals.add(rental);
-		foundCustomer.setRentals(customerRentals);
+		foundCustomer.setRentalVideo(foundVideo);
 	}
 
 	public void register(String object) {
