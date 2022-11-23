@@ -81,8 +81,8 @@ public class VRUI {
 		controller.addCustomer(james) ;
 		controller.addCustomer(brown) ;
 
-		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
-		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+		Video v1 = new Video("v1", VideoType.CD, PriceCode.REGULAR, new Date()) ;
+		Video v2 = new Video("v2", VideoType.DVD, PriceCode.NEW_RELEASE, new Date()) ;
 		controller.addVideo(v1) ;
 		controller.addVideo(v2) ;
 
@@ -163,7 +163,7 @@ public class VRUI {
 		int priceCode = scanner.nextInt();
 
 		Date registeredDate = new Date();
-		Video video = new Video(title, videoType, priceCode, registeredDate) ;
+		Video video = new Video(title, VideoType.get(videoType), PriceCode.get(priceCode), registeredDate) ;
 		controller.addVideo(video) ;
 	}
 

@@ -50,12 +50,12 @@ public class Customer {
 			int daysRented = each.getDaysRented();
 
 			switch (each.getVideo().getPriceCode()) {
-			case Video.REGULAR:
+			case REGULAR:
 				eachCharge += 2;
 				if (daysRented > 2)
 					eachCharge += (daysRented - 2) * 1.5;
 				break;
-			case Video.NEW_RELEASE:
+			case NEW_RELEASE:
 				eachCharge = daysRented * 3;
 				eachPoint++;
 				break;
