@@ -44,13 +44,7 @@ public class VRUI {
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
 		} else {
-			System.out.println("Name: " + foundCustomer.getName() +
-					"\tRentals: " + foundCustomer.getRentals().size()) ;
-			for ( Rental rental: foundCustomer.getRentals() ) {
-				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
-
+			foundCustomer.println();
 			foundCustomer.clearRentals();
 		}
 	}
@@ -64,15 +58,7 @@ public class VRUI {
 
 		System.out.println("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
+		foundCustomer.returnVideo(videoTitle);
 	}
 
 	private void init() {
@@ -86,18 +72,15 @@ public class VRUI {
 		controller.addVideo(v1) ;
 		controller.addVideo(v2) ;
 
-		Rental r1 = new Rental(v1) ;
-		Rental r2 = new Rental(v2) ;
-
-		james.addRental(r1) ;
-		james.addRental(r2) ;
+		james.addRentalVideo(v1) ;
+		james.addRentalVideo(v2) ;
 	}
 
 	public void listVideos() {
 		System.out.println("List of videos");
 
 		for (Video video : controller.getVideoList()) {
-			System.out.println("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
+			video.println();
 		}
 		System.out.println("End of list");
 	}
@@ -105,12 +88,7 @@ public class VRUI {
 	public void listCustomers() {
 		System.out.println("List of customers");
 		for ( Customer customer: controller.getCustomerList() ) {
-			System.out.println("Name: " + customer.getName() +
-					"\tRentals: " + customer.getRentals().size()) ;
-			for ( Rental rental: customer.getRentals() ) {
-				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
+			customer.println();
 		}
 		System.out.println("End of list");
 	}
