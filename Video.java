@@ -42,6 +42,13 @@ public class Video {
 		this.title = title;
 	}
 
+	public boolean isEqual(String title) {
+		if (this.title == null || title == null) {
+			return false;
+		}
+		return this.title.equals(title);
+	}
+
 	public boolean isRented() {
 		return rented;
 	}
@@ -63,6 +70,6 @@ public class Video {
 	}
 
 	public boolean isReturnable(String videoTitle) {
-		return getTitle().equals(videoTitle) && isRented();
+		return isEqual(videoTitle) && isRented();
 	}
 }
