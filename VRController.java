@@ -20,9 +20,9 @@ public class VRController {
     }
 
     Customer getCustomer(String customerName) {
-        for ( Customer customer: getCustomerList()) {
-            if ( customer.getName().equals(customerName)) {
-                return customer ;
+        for (Customer customer : getCustomerList()) {
+            if (customer.getName().equals(customerName)) {
+                return customer;
             }
         }
         return null;
@@ -37,8 +37,8 @@ public class VRController {
     }
 
     Video getVideo(String videoTitle) {
-        for ( Video video: getVideoList() ) {
-            if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
+        for (Video video : getVideoList()) {
+            if (video.getTitle().equals(videoTitle) && !video.isRented()) {
                 return video;
             }
         }
