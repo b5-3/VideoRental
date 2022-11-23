@@ -2,9 +2,9 @@ import java.util.Date;
 import java.util.List;
 
 public class VRController {
-    private List<Customer> customers;
+    private final List<Customer> customers;
 
-    private List<Video> videos;
+    private final List<Video> videos;
 
     public VRController(List<Customer> customers, List<Video> videos) {
         this.customers = customers;
@@ -46,7 +46,7 @@ public class VRController {
 
     Video getVideo(String videoTitle) {
         for (Video video : getVideoList()) {
-            if (video.getTitle().equals(videoTitle) && !video.isRented()) {
+            if (video.isEqual(videoTitle) && !video.isRented()) {
                 return video;
             }
         }
