@@ -6,14 +6,14 @@ import java.util.Scanner;
 public class VRUI {
 	private static Scanner scanner = new Scanner(System.in) ;
 
-	private List<Customer> customers = new ArrayList<Customer>() ;
-
-	private List<Video> videos = new ArrayList<Video>() ;
-
 	private VRController controller;
 
+	public VRUI(VRController controller) {
+		this.controller = controller;
+	}
+
 	public static void main(String[] args) {
-		VRUI ui = new VRUI() ;
+		VRUI ui = new VRUI(new VRController(new ArrayList<Customer>(), new ArrayList<Video>())) ;
 
 		boolean quit = false ;
 		while ( ! quit ) {
@@ -39,7 +39,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName);
+		Customer foundCustomer = controller.getCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -60,7 +60,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName);
+		Customer foundCustomer = controller.getCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
 		System.out.println("Enter video title to return: ") ;
@@ -79,13 +79,13 @@ public class VRUI {
 	private void init() {
 		Customer james = new Customer("James") ;
 		Customer brown = new Customer("Brown") ;
-		customers.add(james) ;
-		customers.add(brown) ;
+		controller.getCustomerList().add(james) ;
+		controller.getCustomerList().add(brown) ;
 
 		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
 		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
-		videos.add(v1) ;
-		videos.add(v2) ;
+		controller.getVideoList().add(v1) ;
+		controller.getVideoList().add(v2) ;
 
 		Rental r1 = new Rental(v1) ;
 		Rental r2 = new Rental(v2) ;
@@ -97,15 +97,15 @@ public class VRUI {
 	public void listVideos() {
 		System.out.println("List of videos");
 
-		for ( Video video: videos ) {
-			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
+		for (Video video : controller.getVideoList()) {
+			System.out.println("Price code: " + video.getPriceCode() + "\tTitle: " + video.getTitle());
 		}
 		System.out.println("End of list");
 	}
 
 	public void listCustomers() {
 		System.out.println("List of customers");
-		for ( Customer customer: customers ) {
+		for ( Customer customer: controller.getCustomerList() ) {
 			System.out.println("Name: " + customer.getName() +
 					"\tRentals: " + customer.getRentals().size()) ;
 			for ( Rental rental: customer.getRentals() ) {
@@ -120,7 +120,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName);
+		Customer foundCustomer = controller.getCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -134,13 +134,13 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName);
+		Customer foundCustomer = controller.getCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
 		System.out.println("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = getVideo(videoTitle);
+		Video foundVideo = controller.getVideo(videoTitle);
 		if ( foundVideo == null ) return ;
 
 		Rental rental = new Rental(foundVideo) ;
@@ -156,9 +156,8 @@ public class VRUI {
 			System.out.println("Enter customer name: ") ;
 			String name = scanner.next();
 			Customer customer = new Customer(name) ;
-			customers.add(customer) ;
-		}
-		else {
+			controller.getCustomerList().add(customer) ;
+		} else {
 			System.out.println("Enter video title to register: ") ;
 			String title = scanner.next() ;
 
@@ -170,7 +169,7 @@ public class VRUI {
 
 			Date registeredDate = new Date();
 			Video video = new Video(title, videoType, priceCode, registeredDate) ;
-			videos.add(video) ;
+			controller.getVideoList().add(video) ;
 		}
 	}
 
@@ -190,23 +189,4 @@ public class VRUI {
 
 		return command ;
 	}
-
-	private Customer getCustomer(String customerName) {
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				return customer ;
-			}
-		}
-		return null;
-	}
-
-	private Video getVideo(String videoTitle) {
-		for ( Video video: videos ) {
-			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
-				return video;
-			}
-		}
-		return null;
-	}
-
 }
